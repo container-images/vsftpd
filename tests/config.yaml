@@ -1,0 +1,22 @@
+document: modularity-testing
+version: 1
+name: vsftpd
+modulemd-url: http://raw.githubusercontent.com/modularity-modules/vsftpd/master/vsftpd.yaml
+source: https://github.com/dhodovsk/vsftpd
+service:
+    port: 21
+packages:
+    rpms:
+        - vsftpd
+module:
+    docker:
+        start: "docker run -p 20:20 -p 21:21 -p 21100-21110:21100-21110 -v $PWD/files/configurations/anonymous_enabled/:/etc/vsftpd/:Z -v $PWD/files/sharedfiles:/var/ftp/pub"
+        labels:
+            description: "Very Secure Ftp Daemon"
+            io.k8s.description: "Very Secure Ftp Daemon"
+        source: https://github.com/container-images/vsftpd.git
+        container: docker.io/modularitycontainers/vsftpd
+
+test:
+    processrunning:
+        - 'ls  /proc/*/exe -alh | grep vsftpd'
