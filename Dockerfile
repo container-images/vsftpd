@@ -14,7 +14,7 @@ ENV SUMMARY="Very Secure Ftp Daemon" \
     RELEASE=1 \
     ARCH=x86_64
 
-LABEL MAINTAINER "Dominika Hodovska" <dhodovsk@redhat.com>
+LABEL maintainer "Dominika Hodovska" <dhodovsk@redhat.com>
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
       io.k8s.description="$SUMMARY" \
