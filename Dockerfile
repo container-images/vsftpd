@@ -14,6 +14,7 @@ ENV SUMMARY="Very Secure Ftp Daemon" \
     RELEASE=1 \
     ARCH=x86_64
 
+LABEL MAINTAINER "Dominika Hodovska" <dhodovsk@redhat.com>
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
       io.k8s.description="$SUMMARY" \
@@ -28,7 +29,7 @@ LABEL summary="$SUMMARY" \
       usage="docker run -p 20:20 -p 21:21 -p 21100-21110:21100-21110 --rm -v /etc/vsftpd/:/etc/vsftpd/ -v /var/ftp/pub/:/var/ftp/pub --name vsftpd vsftpd" \
       help="help.1"
 
-RUN dnf install -y vsftpd && mkdir /home/vsftpd
+RUN dnf install -y vsftpd && dnf clean all && mkdir /home/vsftpd
 
 VOLUME /var/log/vsftpd
 
