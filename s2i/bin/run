@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+if [ -f ./vsftpd.conf ] ; then
+  CONF_FILE=./vsftpd.conf
+else
+  CONF_FILE=/etc/vsftpd/vsftpd.conf
+fi
+
+
+if [ -f ./init-hook ] ; then
+  source ./init-hook
+fi
+
+echo "Configuration file: ${CONF_FILE}"
+
+exec /usr/sbin/vsftpd ${CONF_FILE}

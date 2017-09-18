@@ -12,10 +12,11 @@ ENV SUMMARY="Very Secure Ftp Daemon" \
     NAME=vsftpd \
     VERSION=0 \
     RELEASE=1 \
-    ARCH=x86_64
+    ARCH=x86_64 \
+    APP_DATA=/opt/app-root
 
-LABEL maintainer "Dominika Hodovska" <dhodovsk@redhat.com>
-LABEL summary="$SUMMARY" \
+LABEL maintainer="Dominika Hodovska <dhodovsk@redhat.com>" \
+      summary="$SUMMARY" \
       description="$DESCRIPTION" \
       io.k8s.description="$SUMMARY" \
       io.k8s.display-name="Very Safe FTP Daemon" \
@@ -27,7 +28,8 @@ LABEL summary="$SUMMARY" \
       release="$RELEASE.$DISTTAG" \
       architecture="$ARCH" \
       usage="docker run -p 20:20 -p 21:21 -p 21100-21110:21100-21110 --rm -v /etc/vsftpd/:/etc/vsftpd/ -v /var/ftp/pub/:/var/ftp/pub --name vsftpd vsftpd" \
-      help="help.1"
+      help="help.1" \
+      io.openshift.s2i.scripts-url="image:///usr/local/s2i"
 
 RUN dnf install -y vsftpd && dnf clean all && mkdir /home/vsftpd
 
@@ -35,4 +37,9 @@ VOLUME /var/log/vsftpd
 
 EXPOSE 20 21
 
-CMD ["/usr/sbin/vsftpd", "/etc/vsftpd/vsftpd.conf"]
+RUN mkdir -p ${APP_DATA}/src
+WORKDIR ${APP_DATA}/src
+COPY ./s2i/bin/ /usr/local/s2i
+COPY default-conf/vsftpd.conf /etc/vsftpd/vsftpd.conf
+
+CMD ["/usr/local/s2i/run"]

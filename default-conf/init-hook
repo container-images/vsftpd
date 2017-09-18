@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "This is an example init hook."
+echo "You can put your custom logic here."
