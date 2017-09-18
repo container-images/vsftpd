@@ -15,8 +15,8 @@ ENV SUMMARY="Very Secure Ftp Daemon" \
     ARCH=x86_64 \
     APP_DATA=/opt/app-root
 
-LABEL maintainer "Dominika Hodovska" <dhodovsk@redhat.com>
-LABEL summary="$SUMMARY" \
+LABEL maintainer="Dominika Hodovska <dhodovsk@redhat.com>" \
+      summary="$SUMMARY" \
       description="$DESCRIPTION" \
       io.k8s.description="$SUMMARY" \
       io.k8s.display-name="Very Safe FTP Daemon" \

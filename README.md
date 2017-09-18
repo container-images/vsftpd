@@ -67,15 +67,17 @@ You are able to extend this container image using [source-to-image](https://gith
 
 In order to extend the image using s2i, you need to prepare a directory with following structure:
 ```
-$ tree default-conf
-default-conf
+$ tree vsftpd-extension
+vsftpd-extension
 ├── init-hook
 └── vsftpd.conf
 ```
 
+There is a sample extension directory provided in this repo, named `./default-conf`.
+
 Both files are optional. But you should supply at least one, what would be the point of supplying neither, right?
 
-The file init-hook will be sourced using default shell. You can take a look at
+The file init-hook will be sourced using default shell. You can take a look at a sample init hook at
 [`default-conf`](https://github.com/container-images/vsftpd/tree/master/default-conf)
 directory and use it:
 
@@ -95,15 +97,9 @@ The files are copied into the new container image named `new-vsftpd`, we can run
 
 ```
 $ sudo docker run new-vsftpd
-+ set -o nounset
-+ set -o pipefail
-+ '[' -f ./vsftpd.conf ']'
-+ CONF_FILE=./vsftpd.conf
-+ '[' -f ./init-hook ']'
-+ source ./init-hook
-++ echo 'You can put your custom logic here'
-You can put your custom logic here
-+ exec /usr/sbin/vsftpd ./vsftpd.conf
+This is an example init hook.
+You can put your custom logic here.
+Configuration file: ./vsftpd.conf
 ```
 
 And as you can see, our init script was sourced and vsftpd is now running using our config file.
